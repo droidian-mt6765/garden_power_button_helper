@@ -1,3 +1,4 @@
+# This demonstrates how you could set the brightness using the dbus protocol.
 from pydbus import SessionBus
 from gi.repository import GLib
 import sys
