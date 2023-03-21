@@ -55,8 +55,8 @@ int main(int argc,char* argv[]){
 
 		debug("last_stat : %d, backlight_stat : %d\n",last_stat,backlight_stat);
 
-		if(backlight_stat == 5 && last_stat == 0){
-			//Screen Turned On
+		if((backlight_stat == 5 || backlight_stat == 47) && last_stat == 0) {
+			// Screen Turned On
 			debug("Changing Screen\n");
 			debug("Brightness before : %s\n",before_lock);
 
@@ -71,11 +71,11 @@ int main(int argc,char* argv[]){
 			// Setting the Brightness saved before
 			brightness_control = open("/sys/class/leds/lcd-backlight/brightness",O_WRONLY);
 			bwritten = write(brightness_control,before_lock,bread_before);
-      close(brightness_control);
+			close(brightness_control);
 
 			debug(WRITE_FORMAT,bwritten,"/sys/class/leds/lcd-backlight/brightness");
 
-		} else if(backlight_stat == 5 && last_stat == 5){
+		} else if((backlight_stat == 5 || backlight_stat == 47) && (last_stat == 5 || last_stat == 47)) {
 			// Read the Brightness and save it
 			memset(before_lock, 0, 4);
 			brightness_control = open("/sys/class/leds/lcd-backlight/brightness",O_RDONLY);
